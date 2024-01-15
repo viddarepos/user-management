@@ -3,7 +3,7 @@ import UserService from '../../services/UserService';
 
 const AddUser = () => {
 
-    const [user, setuser] = useState({
+    const [user, setUser] = useState({
         id: "",
         firstName: "",
         lastName: "",
@@ -12,12 +12,12 @@ const AddUser = () => {
 
     const handleChange = (e) => {
         const value = e.target.value;
-        setuser({ ...user, [e.target.name]: value })
+        setUser({ ...user, [e.target.name]: value })
     }
-
 
     const saveUser = (e) => {
         e.preventDefault();
+        
         UserService.saveUser(user)
             .then((response) => {
                 console.log(response)
@@ -26,8 +26,6 @@ const AddUser = () => {
                 console.log(error)
             });
     }
-
-
 
     return (
         <div className="flex max-w-2xl mx-auto shadow border-b">
