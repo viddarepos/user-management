@@ -6,8 +6,11 @@ import com.app.usermanagement.domain.user.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -23,5 +26,14 @@ public class UserServiceImpl implements UserService{
         userRepository.save(createdUser);
 
         return user;
+    }
+
+    @Override
+    public List<UserModel> getAllUsers() {
+        List<User> users = userRepository.findAll();
+
+        return users
+                .stream()
+                .map(user -> new UserModel(user.getId(), user.getFirstName(), user.getLastName(), user.getEmailId())).toList();
     }
 }
